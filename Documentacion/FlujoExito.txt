@@ -1,0 +1,942 @@
+═══════════════════════════════════════════════════════════════════
+FLUJO DE ÉXITO - ProServi
+═══════════════════════════════════════════════════════════════════
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ÍNDICE RÁPIDO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+FASES DEL FLUJO:
+1. Descarga y Registro (Línea 25)
+2. Búsqueda de Profesionales (Línea 90)
+3. Perfil del Profesional (Línea 135)
+4. Respuesta del Profesional (Línea 230)
+5. Ejecución del Trabajo (Línea 280)
+6. Cierre, Pago y Liquidación (Línea 330)
+7. Calificación y Feedback (Línea 430)
+
+SISTEMA DE NOTIFICACIONES: (Línea 460)
+
+═══════════════════════════════════════════════════════════════════
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FASE 1: DESCARGA Y REGISTRO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Usuario descarga la app
+2. Usuario abre la app por primera vez
+   → Sistema detecta que es nuevo usuario
+   → Muestra opciones de registro
+
+3. SELECCIÓN DE TIPO DE USUARIO
+   Usuario elige entre dos opciones:
+   
+   A) "Buscar Profesionales" (USUARIO NORMAL)
+      - Datos requeridos:
+        * Nombre completo (obligatorio)
+        * Email (obligatorio - requiere confirmación)
+        * Teléfono (obligatorio)
+        * Ciudad/Municipio (obligatorio - determina búsquedas locales)
+        * Contraseña (obligatorio - mín 8 caracteres)
+        * Foto de perfil (opcional)
+      - Validaciones:
+        * Email único en el sistema
+        * Teléfono válido y único
+        * Confirmación de email antes de usar la app
+      - Resultado: Cuenta activa como cliente
+   
+   B) "Ofrecer Mis Servicios" (PROFESIONAL)
+      - Datos requeridos BÁSICOS:
+        * Nombre completo (obligatorio)
+        * Email (obligatorio - requiere confirmación)
+        * Teléfono (obligatorio)
+        * Profesión/Especialidad (obligatorio - ejm: Plomería, Electricidad)
+        * Ciudad/Municipio (obligatorio)
+        * Contraseña (obligatorio)
+        * Foto de perfil (obligatorio)
+      - Datos requeridos ADICIONALES (para verificación):
+        * Número de documento/cédula (obligatorio)
+        * Años de experiencia (obligatorio)
+        * Certificaciones/Licencias (mínimo 1)
+        * Descripción de servicios (obligatorio)
+        * Rango de precios (aproximado)
+      - Validaciones:
+        * Email único en el sistema
+        * Teléfono válido y único
+        * Documento verificado
+        * Certificaciones validadas (por admin después)
+        * Confirmación de email y teléfono
+      - Estado después del registro:
+        * Perfil EN ESPERA DE VERIFICACIÓN (hasta 48 horas)
+        * No puede recibir solicitudes hasta ser aprobado
+        * Puede editar su perfil mientras espera
+
+4. Usuario completa el registro elegido
+   → Sistema valida todos los datos
+   → Envía email de confirmación
+   → Usuario confirma email
+   → Cuenta activada
+
+5. PRIMER ACCESO - Tour por la app
+   - Mostrado SOLO a nuevos usuarios (no profesionales en espera)
+   - Presenta:
+     * Para USUARIOS: Cómo buscar profesionales, métodos de contacto, sistema de rating
+     * Para PROFESIONALES VERIFICADOS: Cómo recibir solicitudes, gestionar proyectos
+   - ¿Es obligatorio? SÍ (primera vez), pero se puede saltar después
+   - Duración aproximada: 2-3 minutos
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FASE 2: BÚSQUEDA DE PROFESIONALES (Solo para Usuarios)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+6. Usuario accede a pantalla de búsqueda
+   → Sistema obtiene ciudad actual del usuario (desde registro)
+
+7. Usuario aplica filtros:
+   FILTROS DISPONIBLES:
+   - Profesión/Especialidad (obligatorio - dropdown con opciones)
+   - Sub-especialidad (opcional - por ejemplo: "Plomería" → "Reparación de tuberías")
+   - Radio de distancia (opcional - 5km, 10km, 15km, 20km, radio ampliado)
+   - Rango de precios (opcional - bajo, medio, alto, personalizado)
+   - Disponibilidad (opcional - hoy, esta semana, próximas 2 semanas)
+   - Ordenar por (required):
+     * Más cercanos (distancia)
+     * Mejor calificados (rating)
+     * Más recientes (nuevos profesionales)
+     * Menor precio
+
+8. Sistema presenta resultados de profesionales
+   INFORMACIÓN POR CADA PROFESIONAL:
+   - Foto de perfil
+   - Nombre
+   - Especialidad
+   - Distancia desde usuario (km)
+   - Rating (★★★★★)
+   - Número de reseñas
+   - Precio aproximado
+   - Badge de verificado ✓
+   - Estado de disponibilidad (Disponible, No disponible)
+
+9. Usuario selecciona un profesional
+   → Se abre perfil detallado del profesional
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FASE 3: PERFIL DEL PROFESIONAL Y SELECCIÓN DE CONTACTO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+10. Sistema presenta perfil detallado del profesional:
+    INFORMACIÓN MOSTRADA:
+    - Foto, nombre, especialidad
+    - Rating y reseñas (últimas 5)
+    - Certificaciones y experiencia
+    - Descripción de servicios
+    - Galería de trabajos previos
+    - Precio aproximado o rango
+    - Horario de atención
+    - Ubicación en mapa
+    - Botón "Contactar"
+
+11. Usuario elige su método de contacto preferido
+    MÉTODOS DE CONTACTO DISPONIBLES:
+    
+    A) VISITA PRESENCIAL
+       - Descripción: El profesional se desplaza al lugar del cliente
+       - Tiempo de respuesta esperado: 24-72 horas
+       - Requiere: Dirección exacta del usuario
+       - Costo de visita: VARIABLE según profesional
+         * Se cobra por desplazamiento (establecido en perfil del profesional)
+         * Ejemplos: $20-50 USD por visita diagnóstica
+         * Se suma al costo final del trabajo
+       ⚠️ ADVERTENCIA AL USUARIO:
+         "Esta solicitud incluirá un costo de visita del profesional.
+          Deberás pagar este costo aunque decidas no contratar el servicio."
+    
+    B) LLAMADA TELEFÓNICA
+       - Descripción: Contacto directo por teléfono para asesoría
+       - Tiempo de respuesta esperado: 1-4 horas
+       - Requiere: Teléfono del usuario
+       - Costo: GRATIS
+    
+    C) COTIZACIÓN ESCRITA
+       - Descripción: Usuario describe el trabajo, profesional envía presupuesto
+       - Tiempo de respuesta esperado: 2-24 horas
+       - Requiere: Descripción detallada del trabajo, fotos (opcional)
+       - Costo: GRATIS (cotización es estimado, no compromete al usuario)
+    
+    D) VIDEOLLAMADA
+       - Descripción: Consulta en vivo por video (máx 15 minutos)
+       - Tiempo de respuesta esperado: 24-48 horas
+       - Requiere: Disponibilidad de ambas partes
+       - Costo: GRATIS (si luego contrata el servicio, puede descontarse)
+
+
+12. Usuario completa formulario de contacto (según método elegido)
+    FORMULARIO GENÉRICO:
+    - Título del trabajo/servicio (obligatorio)
+    - Descripción detallada (obligatorio - mínimo 50 caracteres)
+    - Urgencia (normal, media, urgente)
+    - Fotos/evidencia (opcional)
+    - Presupuesto estimado del usuario (opcional - rango aproximado)
+    - Disponibilidad de horarios (obligatorio)
+    - Confirmación de datos de contacto (teléfono, dirección si aplica)
+    - Aceptar términos de servicio (obligatorio)
+
+13. Sistema genera "PRESUPUESTO GENERAL"
+    INFORMACIÓN DEL PRESUPUESTO:
+    - ID único del presupuesto
+    - Profesional seleccionado
+    - Descripción del trabajo
+    - Método de contacto seleccionado
+    - Desglose de costos (si aplica):
+      * Costo de visita (si es visita presencial): $XX
+      * Presupuesto estimado del trabajo: "Por confirmar"
+      * Comisión de plataforma: 0% en esta etapa (se calcula al cierre)
+    - Total a pagar en esta etapa: SOLO si es visita presencial, GRATIS en otros casos
+    - Estado: PENDIENTE DE ACEPTACIÓN DEL PROFESIONAL
+    - Válido por: 7 días (después expira y usuario debe crear uno nuevo)
+
+14. Usuario revisa y confirma solicitud
+    RESUMEN MOSTRADO:
+    - Profesional elegido y su foto
+    - Método de contacto
+    - Presupuesto General creado
+    - ⚠️ Advertencia si hay costo de visita:
+      "Confirmas que aceptas pagar $XX por costo de visita del profesional"
+    - Tiempo estimado de respuesta del profesional
+    - Botón: "CONFIRMAR Y CREAR SOLICITUD"
+
+15. Sistema envía notificación inicial (si hay costo de visita)
+    PARA VISITA PRESENCIAL:
+    - Usuario debe registrar una tarjeta de crédito/débito
+    - Se realiza AUTH (verificación sin cobro) de $1 USD
+      * Esto verifica que la tarjeta sea válida
+      * El $1 se devuelve automáticamente en 1-2 días
+    - Se muestra aviso: "Tu tarjeta está verificada. Se cobrará $XX cuando el profesional acepte"
+    
+    PARA OTROS MÉTODOS:
+    - No se requiere pago en esta etapa
+    - Se avisa: "Presupuesto enviado. El profesional responderá en aprox. X horas"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FASE 4: RESPUESTA DEL PROFESIONAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+16. Sistema envía alerta al profesional
+    
+    🔔 NOTIFICACIÓN #1: NUEVA OFERTA/SOLICITUD RECIBIDA
+    
+    CANALES DE NOTIFICACIÓN (Combo simultáneo de 3):
+    
+    1️⃣ NOTIFICACIÓN EN APP
+       - Pop-up instantáneo cuando abre la app
+       - Icono con número de solicitudes pendientes
+       - Listado en sección "Nuevas Solicitudes"
+       - Contenido:
+         * Nombre y foto del usuario
+         * Especialidad solicitada
+         * Descripción breve del trabajo
+         * Método de contacto elegido
+         * "Ver detalles" → Abre pantalla completa
+    
+    2️⃣ EMAIL
+       - Enviado inmediatamente (máx 1 minuto después)
+       - Asunto: "📋 Nueva solicitud de [nombre usuario] - [especialidad]"
+       - Contenido:
+         * Detalles completos de la solicitud
+         * Foto y datos del usuario
+         * Botón: "Ver solicitud en la app"
+         * Botón: "Aceptar" (si aplica)
+         * Botón: "Rechazar" (si aplica)
+       - Footer: Recordatorio de tiempo máximo para responder
+    
+    3️⃣ WHATSAPP
+       - Enviado simultáneamente (máx 1-2 minutos)
+       - Mensaje:
+         "👷 ¡NUEVA SOLICITUD!
+         📝 [Nombre usuario] te ha contactado
+         🔧 Especialidad: [especialidad]
+         💬 Método: [llamada/visita/cotización]
+         
+         ⏰ Responde en las próximas 24 horas
+         
+         👉 Abre la app para ver detalles: [link]"
+       - Botón interactivo: Aceptar/Rechazar (si la plataforma lo soporta)
+    
+    INFORMACIÓN QUE VE EN APP:
+    - Nombre y foto del usuario
+    - Rating del usuario (si tiene)
+    - Descripción del trabajo solicitado
+    - Fotos/evidencia adjuntas
+    - Método de contacto elegido
+    - Horarios disponibles
+    - Presupuesto General mostrado
+
+17. Profesional ACEPTA o RECHAZA
+    
+16. Profesional revisa oferta de contacto
+    INFORMACIÓN QUE VE:
+    - Nombre y foto del usuario
+    - Rating del usuario (si tiene)
+    - Descripción del trabajo solicitado
+    - Fotos/evidencia adjuntas
+    - Método de contacto elegido
+    - Horarios disponibles
+    - Presupuesto General mostrado
+    - Si es visita: costo de visita ya registrado en el presupuesto
+
+17. Profesional ACEPTA o RECHAZA la solicitud
+    
+    CASO A: ACEPTAR SOLICITUD
+    
+    ✅ Estado: ACEPTADA
+    
+    Para visita presencial:
+    - Profesional puede añadir costo adicional al presupuesto inicial
+    - Sistema notifica al usuario del presupuesto actualizado
+    - Usuario debe confirmar antes de proceder (si cambió el monto)
+    
+    Se abre canal de comunicación
+    
+    🔔 NOTIFICACIÓN #2: PROFESIONAL CONFIRMÓ LA PROPUESTA
+    
+    SOLO PARA USUARIO (NO para profesional):
+    
+    1️⃣ NOTIFICACIÓN EN APP (instantánea)
+       - Pop-up: "¡Buena noticia! [Nombre profesional] ha aceptado tu solicitud"
+       - Color verde (positivo)
+       - Contenido:
+         * Nombre y foto del profesional
+         * Información actualizada de la propuesta
+         * Si es visita: mostrar costo actualizado (si cambió)
+         * Botón: "Ver detalles de la propuesta"
+         * Botón: "Confirmar y proceder" (si hay cambios)
+    
+    2️⃣ EMAIL
+       - Asunto: "✅ [Nombre profesional] ha aceptado tu solicitud"
+       - Contenido:
+         * Confirmación de aceptación
+         * Detalles del profesional
+         * Próximos pasos
+         * Botón: "Ver propuesta completa"
+    
+    NOTA: NO se envía WhatsApp en este punto (evitar spam)
+    
+    → Se abre canal de comunicación (chat)
+    
+    CASO B: RECHAZAR SOLICITUD
+    → Estado: RECHAZADA
+    → Razón opcional del profesional
+    → Usuario es notificado
+    → Si hay costo de visita retenido, se devuelve automáticamente (24 horas)
+    → Sistema le ofrece opciones:
+       * Contactar a otro profesional
+       * Reeditar y reenviarse al mismo profesional
+       * Nuevamente buscar con diferentes filtros
+
+16. Profesional revisa oferta de contacto
+    INFORMACIÓN QUE VE:
+    - Nombre y foto del usuario
+    - Rating del usuario (si tiene)
+    - Descripción del trabajo solicitado
+    - Fotos/evidencia adjuntas
+    - Método de contacto elegido
+    - Horarios disponibles
+    - Presupuesto General mostrado
+    - Si es visita: costo de visita ya registrado en el presupuesto
+
+    
+    CASO B: RECHAZAR SOLICITUD
+
+    → Estado: RECHAZADA
+    → Razón opcional del profesional
+    → Usuario es notificado
+    → Si hay costo de visita retenido, se devuelve automáticamente (24 horas)
+    → Sistema le ofrece opciones:
+       * Contactar a otro profesional
+       * Reeditar y reenviarse al mismo profesional
+       * Nuevamente buscar con diferentes filtros
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FASE 5: EJECUCIÓN DEL TRABAJO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+18. PAGO DEL COSTO DE VISITA (si aplica)
+    
+    SOLO PARA VISITA PRESENCIAL:
+    
+    A) PRIMERA VEZ - Usuario registra tarjeta:
+       - Usuario selecciona: "Pagar con Tarjeta" o "Pagar por Transferencia"
+       
+       OPCIÓN TARJETA:
+       - Formulario: Número, vencimiento, CVV, nombre titular
+       - Integración: API del banco (ej: Stripe, Mercado Pago, Openpay)
+       - Validación: Se realiza charge de $XX (costo de visita)
+       - Confirmación: Recibo enviado por email
+       - Fondos: Se retienen en cuenta del profesional hasta confirmación de trabajo
+       
+       OPCIÓN TRANSFERENCIA:
+       - Se muestra: Datos bancarios del profesional o de la plataforma
+       - Usuario realiza transferencia manualmente
+       - Sistema espera confirmación (24-48 horas)
+       - Una vez confirmada, se procede con el trabajo
+    
+    B) USUARIO RECURRENTE:
+       - Si ya tiene tarjeta registrada, puede seleccionar la opción:
+         * "Usar tarjeta guardada" (últimos 4 dígitos mostrados)
+         * O "Registrar nueva tarjeta"
+       - Confirmación con PIN o biometría (según dispositivo)
+
+19. Profesional y usuario realizan contacto directo
+    SEGÚN EL MÉTODO ELEGIDO:
+    - Visita: Profesional llega a la dirección en horario acordado
+    - Llamada: Contactan por teléfono
+    - Cotización: Sistema facilita intercambio de documentos
+    - Videollamada: Ambos se conectan en horario acordado
+    
+    → Se negocia si es necesario, confirma detalles finales del trabajo
+    → Se actualiza presupuesto si hay cambios (requiere confirmación de usuario)
+    20. Profesional confirma método de contacto realizado
+    → A través de la app marca: "Contacto realizado"
+    → Proporciona actualización del estado del trabajo
+    → Información de próximos pasos
+
+21. Sistema activa estado de trabajo EN PROGRESO
+    - Se crea un proyecto/ticket
+    - Ambas partes pueden subir actualizaciones
+    - Recordatorio diario para ambas partes (si aplica)
+    - Cronograma esperado del trabajo
+    - Cambios en el presupuesto si hay (requiere confirmación de usuario)
+    - Presupuesto Total = Costo de visita (ya pagado) + Costo del trabajo (pendiente)
+
+22. Monitoreo del trabajo
+    CARACTERÍSTICAS:
+    - Chat integrado entre usuario y profesional
+    - Galería de fotos/videos de progreso
+    - Timeline de eventos del proyecto
+    - Avisos si el trabajo se retrasa
+    - Opción de cambiar fechas (requiere confirmación de ambos)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FASE 6: CIERRE, PAGO FINAL Y LIQUIDACIÓN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+23. Trabajo completado - Confirmación de ambas partes
+    
+    PROFESIONAL confirma primero:
+    - "Trabajo terminado por mí"
+    - Detalle de lo realizado
+    - Fotos de resultado final (obligatorio)
+    - Instrucciones de mantenimiento (si aplica)
+    - Marca como "LISTO PARA REVISAR"
+    
+    🔔 NOTIFICACIÓN: PROFESIONAL CONFIRMÓ TERMINACIÓN
+    
+    USUARIO recibe:
+    
+    1️⃣ NOTIFICACIÓN EN APP (instantánea)
+       - Pop-up: "[Nombre profesional] ha confirmado que terminó el trabajo"
+       - Contenido:
+         * Fotos del trabajo completado
+         * Detalles de lo realizado
+         * Instrucciones proporcionadas
+         * Botón: "Revisar trabajo" (para confirmar o reportar)
+    
+    2️⃣ EMAIL
+       - Asunto: "✔️ [Nombre profesional] ha completado tu trabajo"
+       - Incluye:
+         * Galería de fotos
+         * Resumen de lo realizado
+         * Instrucciones de mantenimiento
+         * Botón: "Confirmar en la app"
+    
+    3️⃣ WHATSAPP (SOLO SI USUARIO LO SOLICITA EN PREFERENCIAS)
+       - Mensaje simple: "El trabajo está listo. Abre la app para revisar"
+    
+    USUARIO debe confirmar:
+    - "Trabajo completado correctamente" O "No estoy satisfecho"
+    
+    OPCIÓN 1: USUARIO CONFIRMA ✅
+    - Estado: COMPLETADO Y ACEPTADO
+    - Sistema inicia proceso de PAGO FINAL
+    
+    OPCIÓN 2: USUARIO NO ESTÁ SATISFECHO ❌
+    - Puede reportar disputa ANTES de pagar
+    - Describe qué no está bien
+    - Adjunta fotos de evidencia
+    - Sistema retiene fondos del profesional
+    - Equipo evalúa (24-48h)
+    
+    AMBAS PARTES CONFIRMADAS:
+    → Estado del proyecto: COMPLETADO
+    → Sistema inicia proceso de PAGO FINAL
+
+24. Sistema calcula desglose de pago final
+    
+    DESGLOSE DETALLADO:
+    ┌─────────────────────────────────────────┐
+    │ RESUMEN DE PAGO - Proyecto #[ID]        │
+    ├─────────────────────────────────────────┤
+    │ Costo de visita (ya pagado):      $20   │
+    │ Costo del trabajo:                $150  │
+    │ ────────────────────────────────────    │
+    │ SUBTOTAL:                         $170  │
+    │                                         │
+    │ Comisión de plataforma (8%):      $13.60│
+    │ ════════════════════════════════════════│
+    │ TOTAL A PAGAR POR USUARIO:        $170  │
+    │ (costo de visita ya fue pagado)         │
+    │                                         │
+    │ PROFESIONAL RECIBE:               $156.40│
+    │ (Total - comisión plataforma)           │
+    └─────────────────────────────────────────┘
+
+25. PAGO FINAL DEL TRABAJO (Costo del trabajo + comisión)
+    
+    USUARIO:
+    - Sistema muestra el desglose anterior
+    - Usuario elige método de pago:
+      * Tarjeta registrada (con PIN/biometría)
+      * Nueva tarjeta
+      * Transferencia bancaria
+      * Si hay saldo en billetera ProServi (future feature)
+    
+    - Si elige TARJETA:
+      * Cargo inmediato mediante API del banco
+      * Recibo enviado por email
+      * Fondos llegan a cuenta de plataforma
+    
+    - Si elige TRANSFERENCIA:
+      * Se proporciona datos para transferencia
+      * Usuario tiene 24 horas para transferir
+      * Sistema espera confirmación
+      * Una vez confirmada, se procede con liquidación
+    
+    PROFESIONAL:
+    - Sistema retiene el pago durante 48 horas (período de resolución de disputas)
+    - Tras 48 horas sin disputas, se acredita en su cuenta bancaria
+    
+    🔔 NOTIFICACIÓN #3: PAGO DEPOSITADO EN CUENTA
+    
+    SOLO PARA PROFESIONAL:
+    
+    1️⃣ NOTIFICACIÓN EN APP (cuando se acredita)
+       - Pop-up: "✅ ¡Se ha depositado tu pago!"
+       - Color verde
+       - Contenido:
+         * Monto recibido neto
+         * Número de proyecto
+         * Cliente (nombre del usuario)
+         * Especialidad del trabajo
+         * Botón: "Ver detalles de pago"
+         * Botón: "Ver proyecto completado"
+    
+    2️⃣ EMAIL
+       - Asunto: "💰 Pago depositado en tu cuenta - Proyecto #[ID]"
+       - Contenido:
+         * Monto total: $XXX
+         * Comisión plataforma restada: -$XX
+         * Monto neto recibido: $XXX
+         * Nombre del cliente
+         * Descripción del trabajo
+         * Número de transacción
+         * Tiempo estimado de disponibilidad en banco: 1-2 días hábiles
+         * Botón: "Ver factura/detalles"
+    
+    3️⃣ WHATSAPP
+       - Mensaje: "💵 ¡Tu pago de $XXX ha sido depositado! Disponible en tu banco en 1-2 días hábiles."
+    
+    - Historial de pagos disponible en su dashboard
+    - Descarga de factura disponible en la app
+
+26. Sistema genera recibos y facturas
+    - Recibo para el USUARIO:
+      * Descripción del trabajo
+      * Monto total pagado
+      * Desglose de costos
+      * Datos del profesional
+      * Comprobante de pago (número de transacción)
+    
+    - Factura para el PROFESIONAL:
+      * Datos del cliente
+      * Descripción del servicio
+      * Monto bruto
+      * Comisión de plataforma
+      * Monto neto a recibir
+      * Comprobante de acreditación
+
+27. Proyectos marcado como COMPLETADO Y PAGADO
+    - Historial del trabajo guardado
+    - Ambas partes pueden descargar recibos
+    - Proyecto guardado en historial
+    - Datos disponibles para reportes/impuestos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FASE 7: CALIFICACIÓN Y FEEDBACK
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+28. Usuario califica al profesional
+    SISTEMA DE RATING:
+    - Puntuación: ★★★★★ (1 a 5 estrellas)
+    - Comentario: Opinión sobre el trabajo (texto libre, máximo 500 caracteres)
+    - Aspectos a evaluar:
+      * Puntualidad
+      * Calidad del trabajo
+      * Profesionalismo
+      * Precio justo
+    
+    - Calificación es PÚBLICA en perfil del profesional
+    - Se puede dejar anónima (el usuario no aparece identificado)
+
+29. Profesional puede responder a la calificación
+    - Respuesta profesional (máximo 300 caracteres)
+    - No puede modificar la calificación, solo responder
+
+30. Sistema actualiza métricas
+    - Rating del profesional se recalcula (promedio)
+    - Historial del usuario se actualiza
+    - Badges/achievements si aplica (cliente frecuente, etc)
+
+═══════════════════════════════════════════════════════════════════
+SISTEMA DE REPORTES Y DISPUTAS - PUNTO 2: POSIBLES SOLUCIONES
+═══════════════════════════════════════════════════════════════════
+
+ESCENARIOS CON PROBLEMAS:
+
+1️⃣ USUARIO NO ESTÁ SATISFECHO CON EL TRABAJO
+   - Puede reportar ANTES de confirmar finalización
+   - O puede reportar DESPUÉS de confirmar (en ventana de 7 días)
+   
+2️⃣ PROFESIONAL NO RESPONDE A TIEMPO
+   - Usuario puede reportar inactividad (sin respuesta en 48 horas)
+   
+3️⃣ CONFLICTO DE PRECIOS
+   - Profesional cobró más que lo acordado
+   
+4️⃣ TRABAJO NO REALIZADO
+   - Usuario pagó pero profesional no presentó el servicio
+
+5️⃣ PAGO DUPLICADO O FALLIDO
+   - Cargo realizado pero sin confirmación de trabajo
+
+6️⃣ INFORMACIÓN FALSA DEL PROFESIONAL
+   - Certificaciones o experiencia fraudulentas
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OPCIÓN A: SISTEMA DE ARBITRAJE AUTOMÁTICO (Recomendado para inicio)
+─────────────────────────────────────────────────────────────────
+
+VENTAJAS:
+✓ Rápido (resolución en 24-48 horas)
+✓ Bajo costo operacional
+✓ Decisiones basadas en hechos/evidencia
+
+DESVENTAJAS:
+✗ Requiere criterios muy bien definidos
+✗ Algunas disputas son complejas (subjetivas)
+
+IMPLEMENTACIÓN:
+- Usuario reporta disputa con categoría y evidencia (fotos, chat)
+- Sistema evalúa automáticamente:
+  * Si hay pruebas claras de incumplimiento → Reembolso
+  * Si es ambiguo → Escala a equipo humano
+- Período: 48 horas máximo para resolver
+- Resultado: Reembolso, retención de pago del profesional, o rechazo
+
+CASOS AUTOMÁTICOS:
+✓ Profesional rechazó trabajo sin razón válida
+✓ Usuario pagó pero nunca hubo contacto (comprobable por logs)
+✓ Trabajo incompleto (evidencia de fotos vs. descripción inicial)
+
+CASOS PARA EQUIPO HUMANO:
+✗ Calidad subjetiva ("No me gustó el trabajo")
+✗ Conflicto de precios discutibles
+✗ Ambigüedad en lo acordado
+
+────────────────────────────────────────────────────────────────────
+
+OPCIÓN B: SISTEMA DE ESCROW / RETENCIÓN DE FONDOS (Más seguro)
+────────────────────────────────────────────────────────────────────
+
+VENTAJAS:
+✓ Mayor protección al usuario
+✓ Incentiva al profesional a hacer buen trabajo
+✓ Período de reflexión de 48 horas
+
+DESVENTAJAS:
+✗ Fondos del profesional retenidos por más tiempo
+✗ Complejidad operacional mayor
+✗ Requiere integración bancaria más robusta
+
+IMPLEMENTACIÓN:
+1. Usuario paga → Fondos llegan a billetera ProServi (no al profesional)
+2. Profesional completa trabajo → Usuario tiene 48 horas para:
+   ✓ Confirmar y liberar fondos (pago al profesional)
+   ✓ Reportar disputa (fondos se retienen mientras se investiga)
+3. Si no hay disputa después de 48 horas:
+   → Fondos se acreditan automáticamente al profesional
+4. Si hay disputa:
+   → Sistema retiene fondos hasta resolución (máx 7 días)
+   → Equipo evalúa y libera a quien corresponda
+
+FLUJO DETALLADO:
+┌─────────────────┐
+│ Usuario paga    │ → Fondos en escrow ProServi
+└────────┬────────┘
+         │
+         ├─→ Profesional trabaja → [ESPERA 48 HORAS]
+         │
+         ├─→ Usuario confirma → Fondos al profesional ✓
+         │
+         └─→ Usuario reporta disputa → Fondos retenidos
+                    ↓
+             Equipo evalúa (24-48h)
+                    ↓
+              ├─→ Reembolso a usuario
+              ├─→ Pago al profesional
+              └─→ Rechazo de disputa
+
+────────────────────────────────────────────────────────────────────
+
+OPCIÓN C: SISTEMA HÍBRIDO (RECOMENDADO - Mejor balance)
+────────────────────────────────────────────────────────────────────
+
+VENTAJAS:
+✓ Automatización para casos simples
+✓ Protección para usuarios (escrow)
+✓ Equipo humano para casos complejos
+✓ Escalable
+
+IMPLEMENTACIÓN (Recomendada):
+
+CAPA 1: PREVENCIÓN (75% de los problemas se evitan)
+- Confirmación explícita del usuario antes de pago
+- Presupuesto detallado aprobado por ambas partes
+- Feedback inmediato durante la ejecución
+- Sistema de comportamiento (usuario/profesional con historial)
+
+CAPA 2: RETENCIÓN INTELIGENTE (Escrow parcial)
+- PEQUEÑOS TRABAJOS (< $50):
+  * Pago inmediato al profesional
+  * Usuario reporta en ventana de 7 días
+  * Si disputa → Reembolso desde fondos de plataforma
+  
+- TRABAJOS MEDIANOS ($50 - $300):
+  * Fondos en escrow por 48 horas
+  * Usuario confirma o reporta
+  * Luego se libera o resuelve
+  
+- TRABAJOS GRANDES (> $300):
+  * Fondos en escrow hasta 7 días
+  * Pagos parciales según hitos (ej: 50% inicio, 50% final)
+  * Mayor protección para ambas partes
+
+CAPA 3: RESOLUCIÓN DE DISPUTAS
+- Categorizar automáticamente (tipo de problema)
+- Si es evidente → Bot resuelve (reembolso/retención)
+- Si es ambiguo → Escala a equipo humano (24-48h)
+- Apelación disponible (una sola vez)
+- Decisión final inapelable tras apelación
+
+────────────────────────────────────────────────────────────────────
+
+OPCIÓN D: ASOCIACIÓN CON PLATAFORMA DE PAGOS
+────────────────────────────────────────────────────────────────────
+
+VENTAJAS:
+✓ Tercero neutral gestiona disputas
+✓ Experiencia en resolución de conflictos
+✓ Credibilidad legal
+✓ Cumplimiento de regulaciones
+
+DESVENTAJAS:
+✗ Costo más alto (2-3% comisión adicional)
+✗ Menos control sobre decisiones
+✗ Depende de tercero
+
+PLATAFORMAS OPCIONALES:
+- Stripe Connect (con disputa integrada)
+- PayPal Commerce (sistema de resolution)
+- Mercado Pago (árbitro)
+- Openpay (con protección al comprador)
+
+IMPLEMENTACIÓN:
+- Usar API de plataforma de pagos para gestionar disputas
+- ProServi actúa como intermediaria
+- Plataforma de pagos resuelve conflictos
+- Costo: +2-3% por transacción
+
+════════════════════════════════════════════════════════════════════
+
+📊 COMPARATIVA DE OPCIONES:
+
+╔═══════╦═══════════╦════════════╦═══════════╦═══════════╗
+║ Opción║ Seguridad ║ Costo Ops  ║ Velocidad ║ Escalable ║
+╠═══════╬═══════════╬════════════╬═══════════╬═══════════╣
+║ A     ║ Media ⭐⭐║ Bajo       ║ Rápido    ║ Sí        ║
+║ B     ║ Alta ⭐⭐⭐║ Medio-Alto ║ Lento     ║ Sí        ║
+║ C     ║ Alta ⭐⭐⭐║ Medio      ║ Medio     ║ Sí ✓      ║
+║ D     ║ Media ⭐⭐║ Alto       ║ Rápido    ║ Sí        ║
+╚═══════╩═══════════╩════════════╩═══════════╩═══════════╝
+
+🎯 RECOMENDACIÓN FINAL: OPCIÓN C (Sistema Híbrido)
+
+RAZONES:
+1. Comienza simple con prevención efectiva
+2. Protege a ambas partes sin complejidad excesiva
+3. Escalable conforme crece el negocio
+4. Balance perfecto de costo vs. seguridad
+5. Permite automatización para 80% de casos
+
+IMPLEMENTACIÓN EN 3 FASES:
+
+FASE 1 (MVP): Retención de fondos en escrow por 48 horas + bot simple
+FASE 2: Agregar categorización automática de disputas
+FASE 3: Integrar equipo humano para casos complejos
+
+═══════════════════════════════════════════════════════════════════
+SISTEMA DE NOTIFICACIONES
+═══════════════════════════════════════════════════════════════════
+
+RESUMEN COMPLETO DE ALERTAS POR TIPO DE USUARIO Y ETAPA
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NOTIFICACIONES AL PROFESIONAL (ESPECIALISTA)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📬 NOTIFICACIÓN #1: NUEVA OFERTA/SOLICITUD
+═════════════════════════════════════════════════════════════════
+CUÁNDO: Cuando el usuario crea una solicitud de contacto
+CANALES: App + Email + WhatsApp (COMBO SIMULTÁNEO)
+
+│ CANAL          │ ENVÍO      │ CONTENIDO                              │
+├────────────────┼────────────┼────────────────────────────────────────┤
+│ 🔔 APP         │ Inmediato  │ Nombre/foto usuario, especialidad,     │
+│                │            │ descripción breve, método contacto     │
+│                │            │ Pop-up + Sección "Nuevas Solicitudes" │
+├────────────────┼────────────┼────────────────────────────────────────┤
+│ 📧 EMAIL       │ 1-2 min    │ Asunto: Nueva solicitud de [usuario]   │
+│                │            │ Detalles completos + botones           │
+│                │            │ Aceptar/Rechazar                       │
+├────────────────┼────────────┼────────────────────────────────────────┤
+│ 💬 WHATSAPP    │ 1-2 min    │ Mensaje: Nueva solicitud +             │
+│                │            │ Datos breves + Link a app              │
+│                │            │ Botón: Aceptar/Rechazar               │
+└────────────────┴────────────┴────────────────────────────────────────┘
+
+ACCIÓN ESPERADA: Aceptar o rechazar en máximo 24 horas
+
+📬 NOTIFICACIÓN #2: PAGO DEPOSITADO EN CUENTA
+═════════════════════════════════════════════════════════════════
+CUÁNDO: Cuando el pago se acredita en su cuenta (después de 48h sin disputa)
+CANALES: App + Email + WhatsApp (COMBO)
+
+│ CANAL          │ CONTENIDO                                         │
+├────────────────┼───────────────────────────────────────────────────┤
+│ 🔔 APP         │ ✅ Popup verde: "¡Se ha depositado tu pago!"     │
+│                │ Monto neto, proyecto, cliente, botones            │
+├────────────────┼───────────────────────────────────────────────────┤
+│ 📧 EMAIL       │ Asunto: "💰 Pago depositado - Proyecto #[ID]"   │
+│                │ Desglose: Monto bruto - Comisión = Monto neto    │
+│                │ Cliente, descripción, número de transacción       │
+│                │ Tiempo de disponibilidad: 1-2 días hábiles        │
+├────────────────┼───────────────────────────────────────────────────┤
+│ 💬 WHATSAPP    │ "💵 Tu pago de $XXX ha sido depositado!          │
+│                │ Disponible en tu banco en 1-2 días hábiles"       │
+└────────────────┴───────────────────────────────────────────────────┘
+
+ACCIÓN ESPERADA: Ninguna (confirmación informativa)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NOTIFICACIONES AL USUARIO (CLIENTE)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📬 NOTIFICACIÓN #1: PROFESIONAL CONFIRMÓ LA PROPUESTA
+═════════════════════════════════════════════════════════════════
+CUÁNDO: Cuando el profesional acepta la solicitud de contacto
+CANALES: App + Email (SIN WhatsApp para evitar spam)
+
+│ CANAL          │ CONTENIDO                                         │
+├────────────────┼───────────────────────────────────────────────────┤
+│ 🔔 APP         │ ✅ Popup verde: "¡[Profesional] ha aceptado!"    │
+│                │ Foto/nombre profesional, propuesta actualizada    │
+│                │ Si hay cambios: mostrar nuevo precio             │
+│                │ Botones: Ver detalles, Confirmar y proceder      │
+├────────────────┼───────────────────────────────────────────────────┤
+│ 📧 EMAIL       │ Asunto: "✅ [Profesional] ha aceptado tu solicitud│
+│                │ Detalles de la propuesta, próximos pasos          │
+│                │ Botón: Ver propuesta completa                    │
+└────────────────┴───────────────────────────────────────────────────┘
+
+ACCIÓN ESPERADA: Confirmar propuesta y proceder (o rechazar)
+
+📬 NOTIFICACIÓN #2: PROFESIONAL CONFIRMÓ TERMINACIÓN
+═════════════════════════════════════════════════════════════════
+CUÁNDO: Cuando el profesional marca el trabajo como completado
+CANALES: App + Email + WhatsApp (según preferencia usuario)
+
+│ CANAL          │ CONTENIDO                                         │
+├────────────────┼───────────────────────────────────────────────────┤
+│ 🔔 APP         │ "[Profesional] ha completado el trabajo"          │
+│                │ Galería de fotos del resultado                    │
+│                │ Detalles y instrucciones proporcionadas           │
+│                │ Botones: Revisar trabajo, Confirmar, Reportar    │
+├────────────────┼───────────────────────────────────────────────────┤
+│ 📧 EMAIL       │ Asunto: "✔️ [Profesional] ha completado tu trabajo│
+│                │ Fotos, resumen de lo realizado                    │
+│                │ Instrucciones de mantenimiento                    │
+│                │ Botón: Confirmar en la app                       │
+├────────────────┼───────────────────────────────────────────────────┤
+│ 💬 WHATSAPP    │ "El trabajo está listo. Abre la app para revisar" │
+│                │ (SOLO si usuario lo habilitó en preferencias)    │
+└────────────────┴───────────────────────────────────────────────────┘
+
+ACCIÓN ESPERADA: Confirmar satisfacción del trabajo O reportar problema
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TABLA RESUMEN: NOTIFICACIONES POR ETAPA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+╔═══════════════════════════╦════════════╦════════════╦════════════╗
+║ EVENTO                    ║ PROFESIONAL║ USUARIO    ║ CANALES    ║
+╠═══════════════════════════╬════════════╬════════════╬════════════╣
+║ Usuario crea solicitud    ║     ✅     ║            ║ A+E+W      ║
+║                           ║   (Oferta) ║            ║            ║
+├───────────────────────────┼────────────┼────────────┼────────────┤
+║ Profesional ACEPTA        ║            ║     ✅     ║ A+E        ║
+║                           ║            ║(Confirmó) ║            ║
+├───────────────────────────┼────────────┼────────────┼────────────┤
+║ Profesional termina       ║            ║     ✅     ║ A+E+W*     ║
+║ trabajo                   ║            ║(Completó) ║ (*si activa)║
+├───────────────────────────┼────────────┼────────────┼────────────┤
+║ Usuario confirma + Pago   ║     ✅     ║            ║ A+E+W      ║
+║ se acredita               ║  (Pago!)   ║            ║            ║
+╚═══════════════════════════╩════════════╩════════════╩════════════╝
+
+A = App  |  E = Email  |  W = WhatsApp
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONFIGURACIÓN DE PREFERENCIAS DE NOTIFICACIÓN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Cada usuario (profesional y cliente) puede configurar:
+
+✓ Notificaciones en app: ON/OFF
+✓ Notificaciones por email: ON/OFF
+✓ Notificaciones por WhatsApp: ON/OFF
+✓ Horario de silencio: [HH:MM] a [HH:MM]
+✓ Frecuencia de digest: Inmediato / Diario / Semanal
+
+PROFESIONAL adicionales:
+✓ Alertas de nuevas solicitudes: TODAS / Según especialidad / NINGUNA
+✓ Alertas de pago: SIEMPRE
+
+USUARIO adicionales:
+✓ Alertas de profesional: SIEMPRE
+✓ Confirmación de trabajo: Inmediata / Manual
+
+═══════════════════════════════════════════════════════════════════
+FIN DEL DOCUMENTO
+═══════════════════════════════════════════════════════════════════

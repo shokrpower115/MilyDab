@@ -1,0 +1,16 @@
+C:\dev\ProServi\backend\ProServi.Application\bin\Debug\net9.0\ProServi.Application.deps.json
+C:\dev\ProServi\backend\ProServi.Application\bin\Debug\net9.0\ProServi.Application.dll
+C:\dev\ProServi\backend\ProServi.Application\bin\Debug\net9.0\ProServi.Application.pdb
+C:\dev\ProServi\backend\ProServi.Application\bin\Debug\net9.0\ProServi.Domain.dll
+C:\dev\ProServi\backend\ProServi.Application\bin\Debug\net9.0\ProServi.Domain.pdb
+C:\dev\ProServi\backend\ProServi.Application\obj\Debug\net9.0\ProServi.Application.csproj.AssemblyReference.cache
+C:\dev\ProServi\backend\ProServi.Application\obj\Debug\net9.0\ProServi.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\ProServi\backend\ProServi.Application\obj\Debug\net9.0\ProServi.Application.AssemblyInfoInputs.cache
+C:\dev\ProServi\backend\ProServi.Application\obj\Debug\net9.0\ProServi.Application.AssemblyInfo.cs
+C:\dev\ProServi\backend\ProServi.Application\obj\Debug\net9.0\ProServi.Application.csproj.CoreCompileInputs.cache
+C:\dev\ProServi\backend\ProServi.Application\obj\Debug\net9.0\ProServi.Application.sourcelink.json
+C:\dev\ProServi\backend\ProServi.Application\obj\Debug\net9.0\ProServi.BFC71597.Up2Date
+C:\dev\ProServi\backend\ProServi.Application\obj\Debug\net9.0\ProServi.Application.dll
+C:\dev\ProServi\backend\ProServi.Application\obj\Debug\net9.0\refint\ProServi.Application.dll
+C:\dev\ProServi\backend\ProServi.Application\obj\Debug\net9.0\ProServi.Application.pdb
+C:\dev\ProServi\backend\ProServi.Application\obj\Debug\net9.0\ref\ProServi.Application.dll
